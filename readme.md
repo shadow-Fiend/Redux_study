@@ -4,6 +4,8 @@ React 只是 DOM 的一个抽象层，并不是 web 应用的完整解决方案�
 
 2.组件之间的通信
 
+注：示例来自 Redux 作者，自己敲一遍有所改动并添加了自己的理解 --- [Redux 原址](https://github.com/reduxjs/redux)
+
 ---
 
 ###### Redux 是什么
