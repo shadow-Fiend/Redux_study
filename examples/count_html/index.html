@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>count_html example</title>
+	<script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+</head>
+<body>
+
+<div>
+	click <span id='ct'>0</span> times
+	<button id='add'> + </button>
+	<button id='subtract'> - </button>
+</div>
+
+<script>
+
+	// 创建一个根据 action 动作来更新 state 数据的方法
+	function count(state, action) {
+		if(typeof state === 'undefined') {
+			return 0
+		}
+		switch(action.type) {
+			case 'ADD':
+				return state + 1
+			case 'SUBTRACT':
+				return state - 1
+			default:
+				return state
+		}
+	}
+
+	// 用 redux 库中 createStore 方法来创建状态管理的 store
+	var store = Redux.createStore(count)
+	var ctEle = document.getElementById('ct')
+
+	// 创建一个根据 store 数据变化来更新视图的方法
+	function render() {
+		ctEle.innerHTML = store.getState().toString()
+	}
+
+	// 执行渲染视图的方法
+	render()
+
+	// 用 redux 库中 subscribe 方法订阅获取数据实时更新的状态并进行渲染
+	store.subscribe(render)
+
+	// 创建按钮的 action 对象并放到 store 的 dispatch 中去进行监听派发
+	document.getElementById('add')
+		.addEventListener('click', function() {
+			store.dispatch({ type: 'ADD' })
+		})
+	document.getElementById('subtract')
+		.addEventListener('click', function() {
+			store.dispatch({ type: 'SUBTRACT' })
+		})
+
+</script>
+	
+</body>
+</html>
