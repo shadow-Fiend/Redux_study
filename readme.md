@@ -27,8 +27,12 @@ npm install --save react-redux
 npm install --save-dev redux-devtools
 ```
 应用中所有的 state 都以一个对象树的形式存储在单一的 store 中。唯一改变 state 的方法就是触发 action，一个描述发生了什么的对象，为了描述 action 如何改变 state 树，需要编写 reducers。
+
 - Action 就是一个普通的 JS 对象，用来描述发生了什么
+
 - reducer 只是一个接收 state 和 action，并返回新的 state 的函数
+
+- store 把 action 和 reducer 联系到一起，维持应用的 state，提供 getState() 方法获取 state ，提供 dispatch(action) 更新 state，提供 subscribe(listener) 来注册/注销监听器。
 
 ###### Redux 状态管理过程
 
@@ -43,3 +47,21 @@ npm install --save-dev redux-devtools
 - View 通过 subscribe 订阅获取新数据并进行展示
 
 可以看出 Redux 的单向数据流动的特点：View --- Action --- Reducer --- Store --- View
+
+###### Redux 生命周期遵循的四个步骤
+
+- 调用 Store.dispatch(action) action 就是一个描述发生了什么的普通对象
+
+- Redux Store 调用传入的 reducer 函数。Store 会把当前的两个参数 ( 当前的 state 树, action ) 传入 reducer
+
+- 根 reducer 应该把子 reducer 输出合并成一个单一的  state 树  
+
+- Redux Store 保存了根 reducer 返回的完整 state 树
+
+1.这颗新树就是应用的下一个 state，所有订阅 store.subscribe(listener) 的监听器都将被调用，监听器里可以调用 store.getState() 获得当前 state
+
+2.现在可以应用新的 state 来更新 UI，如果你使用了 React Redux 这类的绑定库，这时就应该调用 component.setState(newState) 来更新 
+
+
+
+
