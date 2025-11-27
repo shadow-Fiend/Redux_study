@@ -19,7 +19,7 @@
     "redux-undo": "^1.0.0"
   },
   "devDependencies": {
-    "react-scripts": "^3.3.0"
+    "react-scripts": "^5.0.1"
   },
   "browserslist": {
     "production": [
